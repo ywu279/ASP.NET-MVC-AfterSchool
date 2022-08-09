@@ -1,0 +1,35 @@
+﻿@model AfterSchool.Models.DataAccess.CourseOffer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+
+<h4>CourseOffer</h4>
+<hr />
+<div class="card rounded-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="@("~/Images/CourseOffers/" + Model.ImageName)" asp-append-version="true" width="250px" class="card-img-top"/>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h3 class="card-title">@Model.Course.Name</h3>
+                <h6 class="card-subtitle mb-2 text-muted">@Model.Location.Name</h6>
+                <h6 class="card-subtitle mb-2"><span class="fw-bold">Start Date: </span>@Model.StartDate.ToString("dd MMMM yyyy")</h6>
+                <h6 class="card-subtitle mb-2"><span class="fw-bold">End Date: </span>@Model.EndDate.ToString("dd MMMM yyyy")</h6>
+                <h6 class="card-subtitle mb-2"><span class="fw-bold">Price: </span>$@Model.Price</h6>
+                <p class="card-text">@Model.Course.Description</p> 
+            </div>  
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="ContactUs" class="btn btn-success"><i class="fa-solid fa-comment-dollar"></i> Purchase Course</a> |
+    <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+</div>
+
+

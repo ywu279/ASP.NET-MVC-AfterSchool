@@ -1,0 +1,29 @@
+﻿@model IEnumerable<AfterSchool.Models.DataAccess.CourseOffer>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="landing">
+    <h1 class="text-center">Welcome to AfterSchool</h1>
+    <h5 class="text-center">An educational institution in Ottawa that offers after-school tutoring programs to students.</h5>
+    <a asp-action="Index" asp-fragment="CourseOffer" class="btn btn-primary">Read More</a>
+</div>
+
+<h2 class="text-center font-monospace mt-5" id="CourseOffer">AfterSchool Courses</h2>
+<h5 class="text-center mb-5">The following showcases a list of courses offered at AfterSchool Institution.</h5>
+<div class="d-flex flex-row justify-content-start align-items-center flex-wrap gap-5">
+    @foreach (var item in Model) {
+        <div class="card border-info rounded-3" style="width: 25rem;">
+          <img src="@("~/Images/CourseOffers/" + item.ImageName)" asp-append-version="true" class="card-img-top" style="object-fit:cover;"/>
+          <div class="card-body">
+            <h3 class="card-title">@item.Course.Name</h3>
+            <h6 class="card-subtitle mb-2 text-muted">@item.Location.Name</h6>
+            <h6 class="card-subtitle mb-2">Price: <span class="fw-bold">$@item.Price</span></h6>
+            <h6 class="card-subtitle mb-2">@item.StartDate.ToString("dd MMMM yyyy") - @item.EndDate.ToString("dd MMMM yyyy")</h6>            
+            <p class="card-text">@item.Course.Description.Substring(0,100)...</p>
+            <a asp-action="Details" asp-route-cid="@item.Course.Id" asp-route-lid="@item.Location.Id" asp-route-sid="@item.StartDate.ToString("yyyy-MM-dd")" class="btn btn-primary">Show Details</a>
+          </div>
+        </div>
+    }
+</div>
