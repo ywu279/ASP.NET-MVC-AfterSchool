@@ -35,6 +35,15 @@ namespace AfterSchool.Models.DataAccess
         [DisplayName("Upload Image")]
         public IFormFile? ImageFile { get; set; }
 
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " - " + LastName;
+            }
+        }
+
         public virtual ICollection<CourseOffer> CourseOffers { get; set; }
     }
 }

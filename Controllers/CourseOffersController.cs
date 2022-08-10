@@ -51,7 +51,7 @@ namespace AfterSchool.Controllers
 
         // GET: CourseOffers/Create
         public IActionResult Create()
-        {
+        {   
             ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "FullCourseName");
             ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Name");
             return View();
