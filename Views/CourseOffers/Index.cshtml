@@ -27,9 +27,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.ImageName)
-            </th>
+            </th>*@
+            <th>Instructor(s)</th>
             <th></th>
         </tr>
     </thead>
@@ -51,8 +52,16 @@
             <td>
                 @item.Price
             </td>
-            <td>
+            @*<td>
                 @item.ImageName
+            </td>*@
+            <td>
+                @{
+                    List<String> nameList = new List<String>();
+                    item.Instructors.ForEach(x => nameList.Add(x.FullName));
+                    var nameStr = string.Join(", ", nameList);
+                }
+                @nameStr
             </td>
             <td>
                 <a asp-action="Edit" asp-route-cid="@item.Course.Id" asp-route-lid="@item.Location.Id" asp-route-sid="@item.StartDate.ToString("yyyy-MM-dd")" class="btn btn-outline-primary">Edit</a> |

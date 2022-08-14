@@ -10,7 +10,7 @@ namespace AfterSchool.Models.DataAccess
     {
         public CourseOffer()
         {
-            Instructors = new HashSet<Instructor>();
+            TeachingRecords = new HashSet<TeachingRecord>();
         }
 
         [Required]
@@ -43,7 +43,9 @@ namespace AfterSchool.Models.DataAccess
 
         public virtual Course Course { get; set; } = null!;
         public virtual Location Location { get; set; } = null!;
+        public virtual ICollection<TeachingRecord> TeachingRecords { get; set; }
 
-        public virtual ICollection<Instructor> Instructors { get; set; }
+        [NotMapped]
+        public List<Instructor> Instructors { get; set; }
     }
 }

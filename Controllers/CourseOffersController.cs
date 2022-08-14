@@ -23,6 +23,17 @@ namespace AfterSchool.Controllers
         // GET: CourseOffers
         public async Task<IActionResult> Index()
         {
+
+            foreach (var co in _context.CourseOffers.ToList())
+            {
+                var instructors = (from t in _context.TeachingRecords
+                                   join i in _context.Instructors on t.InstructorId equals i.Id
+                                   join c in _context.CourseOffers on new { t.CourseId, t.LocationId, t.StartDate } equals new { c.CourseId, c.LocationId, c.StartDate }
+                                   where t.CourseId == co.CourseId && t.LocationId == co.LocationId && t.StartDate == co.StartDate
+                                   select i);
+                co.Instructors = instructors.ToList();
+            }
+
             var afterSchoolContext = _context.CourseOffers.Include(c => c.Course).Include(c => c.Location);
             return View(await afterSchoolContext.ToListAsync());
         }
@@ -44,6 +55,14 @@ namespace AfterSchool.Controllers
                 return NotFound();
             }
 
+
+            var instructors = (from t in _context.TeachingRecords
+                               join i in _context.Instructors on t.InstructorId equals i.Id
+                               join c in _context.CourseOffers on new { t.CourseId, t.LocationId, t.StartDate } equals new { c.CourseId, c.LocationId, c.StartDate }
+                               where t.CourseId == cid && t.LocationId == lid && t.StartDate == DateTime.Parse(sid)
+                               select i);
+            courseOffer.Instructors = instructors.ToList();
+
             return View(courseOffer);
         }
 
@@ -51,7 +70,8 @@ namespace AfterSchool.Controllers
 
         // GET: CourseOffers/Create
         public IActionResult Create()
-        {   
+        {
+            
             ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "FullCourseName");
             ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Name");
             return View();

@@ -10,7 +10,7 @@ namespace AfterSchool.Models.DataAccess
     {
         public Instructor()
         {
-            CourseOffers = new HashSet<CourseOffer>();
+            TeachingRecords = new HashSet<TeachingRecord>();
         }
 
         public int Id { get; set; }
@@ -40,10 +40,10 @@ namespace AfterSchool.Models.DataAccess
         {
             get
             {
-                return FirstName + " - " + LastName;
+                return FirstName + " " + LastName;
             }
         }
 
-        public virtual ICollection<CourseOffer> CourseOffers { get; set; }
+        public virtual ICollection<TeachingRecord> TeachingRecords { get; set; }
     }
 }

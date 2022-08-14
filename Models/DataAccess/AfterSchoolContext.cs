@@ -21,6 +21,7 @@ namespace AfterSchool.Models.DataAccess
         public virtual DbSet<CourseOffer> CourseOffers { get; set; } = null!;
         public virtual DbSet<Instructor> Instructors { get; set; } = null!;
         public virtual DbSet<Location> Locations { get; set; } = null!;
+        public virtual DbSet<TeachingRecord> TeachingRecords { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -45,18 +46,14 @@ namespace AfterSchool.Models.DataAccess
             {
                 entity.ToTable("Category");
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(50)
-                    .IsFixedLength();
+                entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Course>(entity =>
             {
                 entity.ToTable("Course");
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(50)
-                    .IsFixedLength();
+                entity.Property(e => e.Name).HasMaxLength(100);
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Courses)
@@ -68,7 +65,7 @@ namespace AfterSchool.Models.DataAccess
             modelBuilder.Entity<CourseOffer>(entity =>
             {
                 entity.HasKey(e => new { e.CourseId, e.LocationId, e.StartDate })
-                    .HasName("PK__tmp_ms_x__511C8212609E1FF0");
+                    .HasName("PK__tmp_ms_x__511C8212EDDC235D");
 
                 entity.ToTable("CourseOffer");
 
@@ -76,7 +73,7 @@ namespace AfterSchool.Models.DataAccess
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
-                entity.Property(e => e.ImageName).HasColumnName("ImageName");
+                entity.Property(e => e.ImageName).HasMaxLength(200);
 
                 entity.Property(e => e.Price).HasColumnType("decimal(6, 2)");
 
@@ -91,45 +88,52 @@ namespace AfterSchool.Models.DataAccess
                     .HasForeignKey(d => d.LocationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CourseOffer_Location");
-
-                entity.HasMany(d => d.Instructors)
-                    .WithMany(p => p.CourseOffers)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "TeachingRecord",
-                        l => l.HasOne<Instructor>().WithMany().HasForeignKey("InstructorId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_TeachingRecord_Instructor"),
-                        r => r.HasOne<CourseOffer>().WithMany().HasForeignKey("CourseId", "LocationId", "StartDate").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_TeachingRecord_Course"),
-                        j =>
-                        {
-                            j.HasKey("CourseId", "LocationId", "StartDate", "InstructorId").HasName("PK__Teaching__F8B552027E2FD84B");
-
-                            j.ToTable("TeachingRecord");
-
-                            j.IndexerProperty<DateTime>("StartDate").HasColumnType("date");
-                        });
             });
 
             modelBuilder.Entity<Instructor>(entity =>
             {
                 entity.ToTable("Instructor");
 
-                entity.Property(e => e.FirstName)
-                    .HasMaxLength(50)
-                    .IsFixedLength();
+                entity.Property(e => e.FirstName).HasMaxLength(50);
 
-                entity.Property(e => e.ImageName).HasColumnName("ImageName");
+                entity.Property(e => e.ImageName).HasMaxLength(200);
 
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(50)
-                    .IsFixedLength();
+                entity.Property(e => e.LastName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Location>(entity =>
             {
                 entity.ToTable("Location");
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(50)
-                    .IsFixedLength();
+                entity.Property(e => e.Address).HasMaxLength(500);
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<TeachingRecord>(entity =>
+            {
+                entity.HasKey(e => new { e.CourseId, e.LocationId, e.StartDate, e.InstructorId })
+                    .HasName("PK__tmp_ms_x__F8B55202B0025227");
+
+                entity.ToTable("TeachingRecord");
+
+                entity.Property(e => e.StartDate).HasColumnType("date");
+
+                entity.Property(e => e.Timestamp)
+                    .IsRowVersion()
+                    .IsConcurrencyToken();
+
+                entity.HasOne(d => d.Instructor)
+                    .WithMany(p => p.TeachingRecords)
+                    .HasForeignKey(d => d.InstructorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_TeachingRecord_Instructor");
+
+                entity.HasOne(d => d.CourseOffer)
+                    .WithMany(p => p.TeachingRecords)
+                    .HasForeignKey(d => new { d.CourseId, d.LocationId, d.StartDate })
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_TeachingRecord_Course");
             });
 
             OnModelCreatingPartial(modelBuilder);
