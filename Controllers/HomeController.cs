@@ -42,6 +42,13 @@ namespace AfterSchool.Controllers
                 return NotFound();
             }
 
+            var instructors = (from t in _context.TeachingRecords
+                               join i in _context.Instructors on t.InstructorId equals i.Id
+                               join c in _context.CourseOffers on new { t.CourseId, t.LocationId, t.StartDate } equals new { c.CourseId, c.LocationId, c.StartDate }
+                               where t.CourseId == cid && t.LocationId == lid && t.StartDate == DateTime.Parse(sid)
+                               select i);
+            courseOffer.Instructors = instructors.ToList();
+
             return View(courseOffer);
         }
 

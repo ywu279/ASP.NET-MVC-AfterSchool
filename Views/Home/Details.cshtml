@@ -2,6 +2,18 @@
 
 @{
     ViewData["Title"] = "Details";
+
+    List<String> nameList = new List<String>();
+    var nameStr = "";
+    if(Model.Instructors.Count() > 0)
+    {
+        Model.Instructors.ForEach(x => nameList.Add(x.FullName));
+        nameStr = string.Join(", ", nameList); 
+    }
+    else
+    {
+        nameStr = "to be announced";
+    }
 }
 
 <h1>Details</h1>
@@ -18,6 +30,7 @@
             <div class="card-body">
                 <h3 class="card-title">@Model.Course.Name</h3>
                 <h6 class="card-subtitle mb-2 text-muted">@Model.Location.Name</h6>
+                <h6 class="card-subtitle mb-2"><span class="fw-bold">Instructors: </span>@nameStr</h6>
                 <h6 class="card-subtitle mb-2"><span class="fw-bold">Start Date: </span>@Model.StartDate.ToString("dd MMMM yyyy")</h6>
                 <h6 class="card-subtitle mb-2"><span class="fw-bold">End Date: </span>@Model.EndDate.ToString("dd MMMM yyyy")</h6>
                 <h6 class="card-subtitle mb-2"><span class="fw-bold">Price: </span>$@Model.Price</h6>
@@ -29,7 +42,7 @@
 
 <div class="mt-4">
     <a asp-action="ContactUs" class="btn btn-success"><i class="fa-solid fa-comment-dollar"></i> Purchase Course</a> |
-    <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+    <a asp-action="Index" asp-fragment="CourseOffer" class="btn btn-outline-secondary">Back to List</a>
 </div>
 
 
