@@ -10,13 +10,13 @@ namespace AfterSchool.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly AfterSchoolContext _context;
+        private object p;
 
         public HomeController(ILogger<HomeController> logger, AfterSchoolContext context)
         {
             _logger = logger;
             _context = context;
         }
-
 
         public IActionResult Index()
         {
