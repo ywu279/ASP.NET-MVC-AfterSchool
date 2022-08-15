@@ -3,6 +3,7 @@ using AfterSchool.Models.DataAccess;
 using AfterSchool.Models.AdminAccess;
 using Microsoft.AspNetCore.Identity;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -48,5 +49,8 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//To ensure the Identity Database is seeded when the application starts
+IdentitySeedData.EnsurePopulated(app);
 
 app.Run();

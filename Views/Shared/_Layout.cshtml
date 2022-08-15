@@ -26,22 +26,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
                         </li>                        
-
-                        <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-gear"></i> Management
-                          </a>
-                          <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" asp-controller="CourseOffers" asp-action="Index">Manage Course Offers</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" asp-controller="Courses" asp-action="Index">Manage Courses</a></li>
-                            <li><a class="dropdown-item" asp-controller="Locations" asp-action="Index">Manage Locations</a></li>
-                            <li><a class="dropdown-item" asp-controller="Categories" asp-action="Index">Manage Course Categories</a></li>                        
-                            <li><a class="dropdown-item" asp-controller="Instructors" asp-action="Index">Manage Instructors</a></li>
-                          </ul>
-                        </li>
-
                     </ul>
+                    
+                    <partial name="_Identity.cshtml" />
                 </div>
             </div>
         </nav>

@@ -1,0 +1,26 @@
+﻿@if (!User.Identity.IsAuthenticated)
+{
+    <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Login">
+        <i class="bi bi-box-arrow-in-right"></i> Admin Login
+    </a>
+}
+else
+{
+    <div>Hello Admin</div>
+    <li class="nav-item dropdown" style="list-style-type: none;">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-gear"></i> Management
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" asp-controller="CourseOffers" asp-action="Index">Manage Course Offers</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" asp-controller="Courses" asp-action="Index">Manage Courses</a></li>
+            <li><a class="dropdown-item" asp-controller="Locations" asp-action="Index">Manage Locations</a></li>
+            <li><a class="dropdown-item" asp-controller="Categories" asp-action="Index">Manage Course Categories</a></li>                        
+            <li><a class="dropdown-item" asp-controller="Instructors" asp-action="Index">Manage Instructors</a></li>
+        </ul>
+    </li>     
+    <form asp-controller="Account" asp-action="Logout">
+        <button class="btn btn-outline-danger">Log out</button>
+    </form>
+}

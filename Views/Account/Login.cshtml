@@ -1,0 +1,37 @@
+﻿@model AfterSchool.Models.ViewModel.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+        <img src="~/Images/login.jpg" class="img-fluid" alt="">
+    </div>
+    <div class="col-md-6">
+        <h1>Admin Login</h1>
+        <div class="bg-light bg-gradient p-2">
+            <span class="navbar-brand ml-2">After School Management Platform</span>
+        </div>
+        
+        <form asp-action="Login" asp-controller="Account" method="post">
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div class="form-group">
+                <label asp-for="Name"></label><span style="color: red;">*</span>   
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label><span style="color: red;">*</span>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="d-grid mt-4">
+                <button class="btn btn-primary" type="submit">Log In</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
