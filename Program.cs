@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using AfterSchool.Models.DataAccess;
+using AfterSchool.Models.AdminAccess;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,11 @@ builder.Services.AddControllersWithViews();
 // Add services for DB access
 string dbConStr = builder.Configuration.GetConnectionString("AfterSchool");
 builder.Services.AddDbContext<AfterSchoolContext>(options => options.UseSqlServer(dbConStr));
+
+builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:IdentityConnection"]));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppIdentityDbContext>();
 
 // Add session
 builder.Services.AddSession(option =>
@@ -33,6 +40,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseSession();
