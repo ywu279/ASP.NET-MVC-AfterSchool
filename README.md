@@ -30,7 +30,7 @@ AfterSchool is a potential educational institution in Ottawa that offers after-s
 <img src="https://user-images.githubusercontent.com/58931129/185184849-a92b50f5-4c6d-4b7c-bcfe-ad687b3a29d7.png" width="700px">
 
 
-##Acknowledgement
+## Acknowledgement
 A list of recourses I found helpful and would like to give credit to:
 - Landing page image by [Pexels](https://www.pexels.com/)
 - Login Vectors by <a href="https://www.vecteezy.com/free-vector/login">Vecteezy</a>
