@@ -24,18 +24,23 @@ body {
 }
 
 .landing {
-    background-image:url('../Images/LandingPage2.jpg');
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    /*margin-bottom: 50px;*/
-    margin: -20px -150px 50px -150px;
-    color:white;
+    background-image: url('../Images/LandingPage1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: -20px 0px 50px 0px;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 
 .avatar {
