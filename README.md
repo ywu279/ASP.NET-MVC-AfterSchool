@@ -3,8 +3,8 @@ AfterSchool is a potential educational institution in Ottawa that offers after-s
 <br><h3>[View Live Demo](https://afterschoolapp.azurewebsites.net/)</h3>
 
 ## Built with
-- [ASP.NET MVC](https://dotnet.microsoft.com/en-us/apps/aspnet/mvc)
-- Visual Studio
+- [ASP.NET MVC](https://dotnet.microsoft.com/en-us/apps/aspnet/mvc)(.NET 6 Framework)
+- Visual Studio 2022
 - Bootstrap v5.1.0
 
 ## Screenshots
